@@ -1,0 +1,41 @@
+// DM Environment file for OldWorldRebirth.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+#define DEBUG
+// END_PREFERENCES
+
+// BEGIN_INCLUDE
+#include "code\_compile_options.dm"
+#include "code\world.dm"
+#include "code\_onclick\click.dm"
+#include "code\controllers\controller.dm"
+#include "code\game\atom.dm"
+#include "code\game\movable\effects\effect.dm"
+#include "code\game\movable\screen\screen.dm"
+#include "code\game\objects\items\item.dm"
+#include "code\game\objects\landmarks\landmark.dm"
+#include "code\game\objects\machinery\machinery.dm"
+#include "code\game\objects\structure\structure.dm"
+#include "code\game\turf\turf.dm"
+#include "code\js\byjax.dm"
+#include "code\js\menus.dm"
+#include "code\modules\mob\mob.dm"
+#include "code\modules\mob\dead\new_player\new_payer.dm"
+#include "code\modules\mob\dead\observer\observer.dm"
+#include "code\modules\mob\living\living.dm"
+#include "code\modules\mob\living\carbon\carbon.dm"
+#include "code\modules\mob\living\carbon\human\human.dm"
+#include "code\modules\mob\living\silicon\silicon.dm"
+#include "code\modules\mob\living\silicon\pai\pai.dm"
+#include "code\modules\mob\living\silicon\robot\robot.dm"
+// END_INCLUDE
+

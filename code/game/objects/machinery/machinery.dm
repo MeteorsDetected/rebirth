@@ -1,0 +1,2 @@
+/obj/machinery
+	name = "machinery"
