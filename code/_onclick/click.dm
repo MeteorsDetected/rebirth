@@ -1,5 +1,6 @@
 // 1 decisecond click delay (above and beyond mob/next_move)
 /client/var/next_click = 0
+/mob/var/next_move = null
 
 /*
 	Before anything else, defer these calls to a per-mobtype handler.  This allows us to
@@ -11,12 +12,20 @@
 	Note that this proc can be overridden, and is in the case of screen objects.
 */
 
+/client/proc/updateClickDelay()
+	if(next_click >= world.time)
+		next_click = world.time + 1
+		return TRUE
+	return FALSE
+
+
 /client/Click(atom/target, location, control, params)
 	//check'n'update delay
-	//<...>
+	if(!updateClickDelay())
+		return
 
 	//handle client level actoins (buildmode)
-	//<...>
+	//Nothing right now
 
 	//default behavior
 	if(!target.Click(location, control, params))
@@ -25,10 +34,14 @@
 /atom/Click(location, control, params)
 	return FALSE //do not catch click
 
+
 /client/DblClick(atom/target, location, control, params)
 	//check'n'update delay
+	if(!updateClickDelay())
+		return
 
 	//handle client level actoins (buildmode)
+	//Nothing right now
 
 	//default behavior
 	if(!target.DblClick(location, control, params))
@@ -36,6 +49,7 @@
 
 /atom/DblClick(location, control, params)
 	return FALSE
+
 
 /*
 	Standard mob ClickOn()
@@ -56,5 +70,76 @@
 //Default behavior:
 // ignore double clicks, the second click that makes the doubleclick call already calls for a normal click
 /mob/proc/DblClickOn(var/atom/A, var/params)
+
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(A)
+		return TRUE
+	if(modifiers["middle"])
+		MiddleClickOn(A)
+		return TRUE
+	if(modifiers["shift"])
+		ShiftClickOn(A)
+		return TRUE
+	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+		AltClickOn(A)
+		return TRUE
+	if(modifiers["ctrl"])
+		CtrlClickOn(A)
+		return TRUE
+
+	if(!canClick()) // in the year 2000...
+		return TRUE
+
+
+/mob/proc/setClickCooldown(var/timeout)
+	next_move = max(world.time + timeout, next_move)
+
+/mob/proc/canClick()
+	return (next_move <= world.time)
+
+/*
+	Middle click
+	Only used for swapping hands
+*/
+/mob/proc/MiddleClickOn(var/atom/A)
+
+/*
+	Shift click
+	For most mobs, examine.
+	This is overridden in ai.dm
+*/
+/mob/proc/ShiftClickOn(var/atom/A)
+	A.ShiftClick(src)
+
+/atom/proc/ShiftClick(var/mob/user)
+	if(src in view(user))
+		user.examinate(src)
+
+/*
+	Alt click
+	Unused except for AI
+*/
+/mob/proc/AltClickOn(var/atom/A)
+	A.AltClick(src)
+
+/atom/proc/AltClick(var/mob/user)
+
+/*
+	Ctrl click
+	For most objects, pull
+*/
+/mob/proc/CtrlClickOn(var/atom/A)
+	A.CtrlClick(src)
+
+/atom/proc/CtrlClick(var/mob/user)
+
+/*
+	Control+Shift click
+	Unused except for AI
+*/
+/mob/proc/CtrlShiftClickOn(var/atom/A)
+	A.CtrlShiftClick(src)
 	return
 
+/atom/proc/CtrlShiftClick(var/mob/user)
