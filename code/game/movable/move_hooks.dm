@@ -63,11 +63,4 @@
 /atom/movable/proc/onUncrossed(atom/movable/o)
 	set waitfor = FALSE
 
-/atom/movable/proc/canMove(atom/NewLoc, Dir = 0, Step_x = 0, Step_y = 0)
-	set waitfor = FALSE
-	return TRUE
-
-/atom/movable/proc/Moved(atom/OldLoc, oDir, oSx, oSy)
-	set waitfor = FALSE
-
 
