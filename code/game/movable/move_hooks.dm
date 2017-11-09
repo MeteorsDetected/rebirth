@@ -18,10 +18,10 @@
 
 // Movable atom
 /atom/movable/Cross(atom/movable/o)
-	return o.onCross(src,..())
+	return o.onCross(src, ..())
 
 /atom/movable/Uncross(atom/movable/o)
-	return o.onUncross(src,..())
+	return o.onUncross(src, ..())
 
 /atom/movable/Crossed(atom/movable/o)
 	o.onCrossed(src)
@@ -35,25 +35,25 @@
 	o.Bumped(src)
 	..()
 
-/atom/movable/proc/onEnter(atom/o,atom/oldloc,retval)
+/atom/movable/proc/onEnter(atom/o, atom/oldloc, retval)
 	set waitfor = FALSE
 	return retval
 
-/atom/movable/proc/onExit(atom/o,atom/newloc,retval)
+/atom/movable/proc/onExit(atom/o, atom/newloc, retval)
 	set waitfor = FALSE
 	return retval
 
-/atom/movable/proc/onEntered(atom/o,atom/oldloc)
+/atom/movable/proc/onEntered(atom/o, atom/oldloc)
 	set waitfor = FALSE
 
-/atom/movable/proc/onExited(atom/o,atom/newloc)
+/atom/movable/proc/onExited(atom/o, atom/newloc)
 	set waitfor = FALSE
 
-/atom/movable/proc/onCross(atom/movable/o,retval)
+/atom/movable/proc/onCross(atom/movable/o, retval)
 	set waitfor = FALSE
 	return retval
 
-/atom/movable/proc/onUncross(atom/movable/o,retval)
+/atom/movable/proc/onUncross(atom/movable/o, retval)
 	set waitfor = FALSE
 	return retval
 
@@ -62,3 +62,12 @@
 
 /atom/movable/proc/onUncrossed(atom/movable/o)
 	set waitfor = FALSE
+
+/atom/movable/proc/canMove(atom/NewLoc, Dir = 0, Step_x = 0, Step_y = 0)
+	set waitfor = FALSE
+	return TRUE
+
+/atom/movable/proc/Moved(atom/OldLoc, oDir, oSx, oSy)
+	set waitfor = FALSE
+
+
