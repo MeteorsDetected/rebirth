@@ -142,6 +142,5 @@
 */
 /mob/proc/CtrlShiftClickOn(var/atom/A)
 	A.CtrlShiftClick(src)
-	return
 
 /atom/proc/CtrlShiftClick(var/mob/user)
