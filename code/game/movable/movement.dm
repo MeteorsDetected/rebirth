@@ -1,35 +1,31 @@
-/atom/movable/Move(atom/NewLoc, Dir = 0, Step_x = 0, Step_y = 0)
+/atom/movable/Move(atom/NewLoc, Dir = 0)
 	var/oLoc = loc
 	var/oDir = dir
-	var/oSx  = step_x
-	var/oSy  = step_y
 	. = canMove(arglist(args)) && ..()
 	if(. || dir != oDir)
-		Moved(oLoc, oDir, oSx, oSy)
+		Moved(oLoc, oDir)
 
 
-/atom/movable/proc/forceMove(atom/NewLoc, Dir = 0, Step_x = 0, Step_y = 0)
+/atom/movable/proc/forceMove(atom/NewLoc, Dir = 0)
 	var/OldLoc = loc
 	var/oDir = dir
-	var/oSx = step_x
-	var/oSy = step_y
 	if(!Dir)
 		Dir = dir
 	if(loc == NewLoc)
 		if(dir != Dir)
 			dir = Dir
-			Moved(OldLoc, oDir, oSx, oSy)
+			Moved(OldLoc, oDir)
 			return TRUE
 		else
 			return FALSE
 	else if(isturf(NewLoc) && isturf(loc))
 		if(z == NewLoc.z)
-			var/dx = (x * 32 + step_x) - (NewLoc.x * 32 + Step_x)
-			var/dy = (y * 32 + step_y) - (NewLoc.y * 32 + Step_y)
+			var/dx = (x - NewLoc.x)
+			var/dy = (y - NewLoc.y)
 			if(!dx && !dy)
 				if(dir != Dir)
 					dir = Dir
-					Moved(OldLoc, oDir, oSx, oSy)
+					Moved(OldLoc, oDir)
 					return TRUE
 				else
 					return FALSE
@@ -50,8 +46,6 @@
 
 	loc = NewLoc
 	dir = Dir
-	step_x = Step_x
-	step_y = Step_y
 
 	nlocs = locs
 	if(isturf(loc))
@@ -81,5 +75,5 @@
 	for(var/atom/movable/o in eobjs)
 		o.Crossed(src)
 
-	Moved(OldLoc, oDir, oSx, oSy)
+	Moved(OldLoc, oDir)
 	return TRUE
