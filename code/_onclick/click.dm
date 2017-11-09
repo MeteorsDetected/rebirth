@@ -113,8 +113,10 @@
 	A.ShiftClick(src)
 
 /atom/proc/ShiftClick(var/mob/user)
+/*
 	if(src in view(user))
 		user.examinate(src)
+*/
 
 /*
 	Alt click
