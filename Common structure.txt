@@ -1,0 +1,32 @@
+/atom
+	/turf
+		/simulated
+		/unsimulated
+	/movable
+		/mob
+			:state # describe mob state ACTIVE, DISABLED, DEAD
+			/dead
+				/new_player
+				/observer
+			/living
+				:ai    # control mob
+				/carbon
+					/human
+						:organs
+						:organs_by_name
+						:internal_organs
+						:internal_organs_by_name
+				/silicon
+					/robot
+					/pai
+				/simple
+					:origin # organic|mechanic define remains type, applicable effects 
+		/obj
+			/item      # holdable
+			/machinery # power-sucker, processed
+				/computer
+				/airlock
+			/structure # basically not processed
+			/landmark  # deleted at round start mark something
+		/screen # pure hud elements
+		/effect # moved here from /obj
