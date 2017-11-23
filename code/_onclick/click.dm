@@ -64,33 +64,34 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn(var/atom/A, var/params)
+/mob/proc/ClickOn(var/atom/target, var/params)
 	return
 
 //Default behavior:
 // ignore double clicks, the second click that makes the doubleclick call already calls for a normal click
-/mob/proc/DblClickOn(var/atom/A, var/params)
-
-	var/list/modifiers = params2list(params)
-	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
-		return TRUE
-	if(modifiers["middle"])
-		MiddleClickOn(A)
-		return TRUE
-	if(modifiers["shift"])
-		ShiftClickOn(A)
-		return TRUE
-	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
-		return TRUE
-	if(modifiers["ctrl"])
-		CtrlClickOn(A)
-		return TRUE
+/mob/proc/DblClickOn(var/atom/target, var/params)
 
 	if(!canClick()) // in the year 2000...
 		return TRUE
 
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(target)
+		return TRUE
+	if(modifiers["middle"])
+		MiddleClickOn(target)
+		return TRUE
+	if(modifiers["shift"])
+		ShiftClickOn(target)
+		return TRUE
+	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+		AltClickOn(target)
+		return TRUE
+	if(modifiers["ctrl"])
+		CtrlClickOn(target)
+		return TRUE
+
+	mobClickOn(target, modifiers)
 
 /mob/proc/setClickCooldown(var/timeout)
 	next_move = max(world.time + timeout, next_move)
@@ -98,21 +99,27 @@
 /mob/proc/canClick()
 	return (next_move <= world.time)
 
+
+/*
+	Default mob type depended behavior
+*/
+/mob/proc/mobClickOn(atom/target)
+
 /*
 	Middle click
 	Only used for swapping hands
 */
-/mob/proc/MiddleClickOn(var/atom/A)
+/mob/proc/MiddleClickOn(atom/target)
 
 /*
 	Shift click
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(var/atom/A)
-	A.ShiftClick(src)
+/mob/proc/ShiftClickOn(var/atom/target)
+	target.ShiftClick(src)
 
-/atom/proc/ShiftClick(var/mob/user)
+/atom/proc/ShiftClick(mob/user)
 /*
 	if(src in view(user))
 		user.examinate(src)
@@ -122,25 +129,25 @@
 	Alt click
 	Unused except for AI
 */
-/mob/proc/AltClickOn(var/atom/A)
-	A.AltClick(src)
+/mob/proc/AltClickOn(atom/target)
+	target.AltClick(src)
 
-/atom/proc/AltClick(var/mob/user)
+/atom/proc/AltClick(mob/user)
 
 /*
 	Ctrl click
 	For most objects, pull
 */
-/mob/proc/CtrlClickOn(var/atom/A)
-	A.CtrlClick(src)
+/mob/proc/CtrlClickOn(atom/target)
+	target.CtrlClick(src)
 
-/atom/proc/CtrlClick(var/mob/user)
+/atom/proc/CtrlClick(mob/user)
 
 /*
 	Control+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(var/atom/A)
-	A.CtrlShiftClick(src)
+/mob/proc/CtrlShiftClickOn(atom/target)
+	target.CtrlShiftClick(src)
 
-/atom/proc/CtrlShiftClick(var/mob/user)
+/atom/proc/CtrlShiftClick(mob/user)
