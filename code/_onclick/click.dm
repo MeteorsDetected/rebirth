@@ -14,9 +14,9 @@
 
 /client/proc/updateClickDelay()
 	if(next_click >= world.time)
-		next_click = world.time + 1
-		return TRUE
-	return FALSE
+		return FALSE
+	next_click = world.time + 1
+	return TRUE
 
 
 /client/Click(atom/target, location, control, params)
@@ -28,11 +28,11 @@
 	//Nothing right now
 
 	//default behavior
-	if(!target.Click(location, control, params))
+	if(target.Click(location, control, params))
 		mob.ClickOn(target, params)
 
 /atom/Click(location, control, params)
-	return FALSE //do not catch click
+	return TRUE
 
 
 /client/DblClick(atom/target, location, control, params)
@@ -51,6 +51,11 @@
 	return FALSE
 
 
+//Default behavior:
+// ignore double clicks, the second click that makes the doubleclick call already calls for a normal click
+/mob/proc/DblClickOn(var/atom/target, var/params)
+	return
+
 /*
 	Standard mob ClickOn()
 	Handles exceptions: middle click, modified clicks, mech actions
@@ -65,12 +70,6 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(var/atom/target, var/params)
-	return
-
-//Default behavior:
-// ignore double clicks, the second click that makes the doubleclick call already calls for a normal click
-/mob/proc/DblClickOn(var/atom/target, var/params)
-
 	if(!canClick()) // in the year 2000...
 		return TRUE
 

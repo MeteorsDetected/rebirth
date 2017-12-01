@@ -1,11 +1,11 @@
 /obj/item/proc/itemClick(mob/living/user, atom/target, list/params)
 	if(target == src)
-		return attack_self(user)
+		return attackSelf(user)
 
 	if(attack(user, target, params))
-		var/resolved = target.attackedBy(src, user, params)
-		if(!resolved && target && !QDELETED(src))
-			afterattack(target, user, 1, params)
+		var/resolved = target.attackBy(src, user, params)
+		if(!resolved && target && src)
+			afterAttack(target, user, 1, params)
 
 //do stuff before attackby!
 /obj/item/proc/attack(atom/A, mob/user, params)
@@ -15,5 +15,6 @@
 
 /obj/item/proc/afterAttack(atom/A, mob/user, params)
 
+/obj/item/proc/attackSelf(mob/user)
 
-/atom/proc/attackby(obj/item/W, mob/user, params)
+/atom/proc/attackBy(obj/item/W, mob/user, params)
