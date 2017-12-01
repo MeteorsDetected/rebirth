@@ -14,13 +14,12 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__defines\click.dm"
 #include "code\_helpers\time.dm"
 #include "code\_onclick\click.dm"
 #include "code\_onclick\click_access.dm"
-#include "code\_onclick\debug.dm"
+#include "code\_onclick\item_attack.dm"
 #include "code\_onclick\click\human.dm"
 #include "code\_onclick\click\new_player.dm"
 #include "code\_onclick\click\observer.dm"

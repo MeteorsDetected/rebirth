@@ -2,7 +2,7 @@
 //Try looking in game/world.dm
 
 /world
-	mob = /mob/debug
+	mob = /mob/dead/new_player
 	turf = /turf/unsimulated/floor
 	//DEBUG_STAGE
 	/*

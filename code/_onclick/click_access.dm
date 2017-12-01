@@ -1,7 +1,7 @@
 /mob/proc/getClickAccess(atom/target)
 	return CLICK_ACCESS_DIRECT
 
-/mob/living/carbon/human/getClickAccess(atom/target)
+/mob/living/getClickAccess(atom/target)
 	if(target in GetAllContents())
 		return CLICK_ACCESS_DIRECT
 	if(isturf(loc))
