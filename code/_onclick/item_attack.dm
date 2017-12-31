@@ -4,13 +4,13 @@
 
 	switch(access)
 		if(CLICK_ACCESS_DIRECT, CLICK_ACCESS_ADJACENT)
-			if(!attack(user, target, params))
+			if(!attack(target, user, params))
 				var/resolved = target.attackBy(src, user, params)
 				// bypass after attack for items on mob
-				if(!resolved && target && src && access == CLICK_ACCESS_ADJACENT)
-					afterAttack(target, user, TRUE, params)
+				if(!resolved && target && src && (access == CLICK_ACCESS_ADJACENT))
+					src.afterAttack(target, user, TRUE, params)
 		if(CLICK_ACCESS_RANGE)
-			afterAttack(target, user, FALSE, params)
+			src.afterAttack(target, user, FALSE, params)
 
 //do stuff before attackby!
 /obj/item/proc/attack(atom/target, mob/user, params)
